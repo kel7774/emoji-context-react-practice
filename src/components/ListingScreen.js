@@ -14,6 +14,7 @@ const ListingScreen = ({ emojis }) => {
   return (
     <div>
       <header>Listing Screen</header>
+      <Link to="/">Back</Link>
       <ListGroup>
         {emojis.map((emoji, key) => (
           <ListPoints key={key}>

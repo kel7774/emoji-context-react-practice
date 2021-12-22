@@ -7,10 +7,19 @@ import ListingScreen from "./components/ListingScreen";
 
 export default function App() {
   const [emojis, setEmojis] = React.useState([]);
-  axios
-    .get("https://emojihub.herokuapp.com/api/all")
-    .then((response) => setEmojis(response.data))
-    .catch((error) => console.log(error));
+  const [, setError] = React.useState([]);
+
+  const loadEmojis = React.useCallback(async () => {
+    const response = await axios.get("https://emojihub.herokuapp.com/api/all");
+    if (!response.data) {
+      setError((error) => error);
+    }
+    setEmojis(response.data);
+  }, []);
+
+  React.useEffect(() => {
+    loadEmojis();
+  }, []);
 
   return (
     <div className="App">
